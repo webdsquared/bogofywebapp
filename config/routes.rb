@@ -1,4 +1,23 @@
 Bogofywebapp::Application.routes.draw do
+  match 'auth/:provider/callback', to: 'sessions#create'
+  match 'auth/failure', to: redirect('/')
+  match 'signout', to: 'sessions#destroy', as: 'signout'
+
+  resources :identities
+  #resources :transactions
+
+  resources :items
+
+  resources :lists
+
+  resources :stores
+
+  resources :users do
+    resources :transactions
+  end
+
+  root to: "pages#home"
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

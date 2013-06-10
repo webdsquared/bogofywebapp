@@ -1,0 +1,40 @@
+<!-- if current user then this appears -->
+<% if user_signed_in? %>
+<h4>You average savings are...</h4> 
+<%= link_to "add transactions" %>
+<div id="transaction-form">
+	<%= form_for([@user, @user.transactions.build]) do |f| %>
+		<%= f.date_select :date %> 
+		<%= f.text_field :amount_spent %>
+		<%= f.text_field :amount_saved %>
+		<%= f.submit "Add Transaction", class: "btn" %> 
+	<% end %>
+</div>
+
+<h4>Recent Transactions</h4>
+<% for transaction in @transactions %>
+	<p><%= "Transaction was on #{transaction.date.strftime("%b %d, %Y")} and I spent #{number_to_currency transaction.amount_spent} and saved #{number_to_currency transaction.amount_saved}. My savings was a whopping #{number_to_percentage transaction.average_savings}!" %></p>
+<% end %>
+<h4>Recent Activity</h4>
+
+
+<% else %>
+<!-- otherwise the normal home page appears -->
+
+Don't user facebook? 
+<%= link_to "Create an account", new_identity_path %> or login below.
+
+Sign in with email and password...
+
+<%= form_tag "/auth/identity/callback" do %>
+  <div class="field">
+    <%= label_tag :auth_key, "Email" %><br>
+    <%= text_field_tag :auth_key %>
+  </div>
+  <div class="field">
+    <%= label_tag :password %><br>
+    <%= password_field_tag :password %>
+  </div>
+  <div class="actions"><%= submit_tag "Login" %></div>
+<% end %>
+<% end %>

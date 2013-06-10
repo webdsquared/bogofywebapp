@@ -1,0 +1,16 @@
+<%= form_for @transaction do |f| %>
+  
+  <p>
+    <%= f.label :date %><br />
+    <%= f.datetime_select :date %>
+  </p>
+  <p>
+    <%= f.label :amount_spent %><br />
+    <%= f.text_field :amount_spent %>
+  </p>
+  <p>
+    <%= f.label :amount_saved %><br />
+    <%= f.text_field :amount_saved %>
+  </p>
+  <p><%= f.submit %></p>
+<% end %>
