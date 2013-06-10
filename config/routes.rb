@@ -1,4 +1,5 @@
 Bogofywebapp::Application.routes.draw do
+
   match 'auth/:provider/callback', to: 'sessions#create'
   match 'auth/failure', to: redirect('/')
   match 'signout', to: 'sessions#destroy', as: 'signout'
@@ -12,8 +13,11 @@ Bogofywebapp::Application.routes.draw do
 
   resources :stores
 
+  
+
   resources :users do
     resources :transactions
+    resources :notes
   end
 
   root to: "pages#home"

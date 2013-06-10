@@ -16,6 +16,14 @@
 	<p><%= "Transaction was on #{transaction.date.strftime("%b %d, %Y")} and I spent #{number_to_currency transaction.amount_spent} and saved #{number_to_currency transaction.amount_saved}. My savings was a whopping #{number_to_percentage transaction.average_savings}!" %></p>
 <% end %>
 <h4>Recent Activity</h4>
+<%= form_for([@user, @user.notes.build]) do |f| %>
+  <%= f.text_area :content, placeholder: "Add an update...", rows: 3 %><br>
+  <%= f.submit "Update" %>
+<% end %>
+
+<div id="note-container">
+  <%= render "pages/note_list" %>
+</div>
 
 
 <% else %>
